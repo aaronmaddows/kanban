@@ -1,0 +1,90 @@
+<div class="root">
+
+    <div *ngIf="isShown" class="new-task-window-root">
+        
+        <div class="new-task-window">
+            
+            
+            <form class="new-task-form">
+                <p class="new-task-form-label">Task Name</p>
+                <mat-form-field class="new-task-input">
+                    <input matInput placeholder="New Taskname" value="New Taskname">
+                </mat-form-field>
+
+                <br /><br /><br />
+
+                <!-- <mat-form-field appearance="standard"> -->
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                <!-- </mat-form-field> -->
+
+                
+
+                <br /><br /><br />
+
+                <mat-label class="new-task-form-label">Description</mat-label>
+                <br>
+                <mat-form-field class="new-task-description">
+                    <textarea name="Comments" mdInput placeholder="Comments" rows="5" cols="50"></textarea>
+                </mat-form-field>
+
+            </form>
+            <p>
+                <button id="basic" type="button" (click)="Button_Debug()">
+                    Create
+                </button>
+                <button id="basic" type="button" (click)="Button_Debug()">
+                    Cancel
+                </button>
+            </p>
+         </div>
+    </div>
+    
+
+
+    <div class="navbar has-background-dark">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                 <h1 class="app-name has-gradient-text">kanban</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+
+        <div class="board-bar">
+            <p class="board-name">Board Name</p>
+        </div>
+
+        <div class="board-wrapper">
+            <div class="board-columns" cdkDropListGroup>
+
+                <div class="board-column" *ngFor="let column of board.columns" >
+                    
+                    <div class="column-title">
+                        {{column.name}}
+                        <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+                            <button id="basic" type="button" (click)="toggleShowTaskCreate(column.name)">
+                                +
+                            </button>
+                        </button>
+                    </div>
+
+                    <div class="tasks-container"
+                        cdkDropList
+                        [cdkDropListData]="column.tasks"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="task" *ngFor='let item of column.tasks' cdkDrag>
+                            {{item}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
